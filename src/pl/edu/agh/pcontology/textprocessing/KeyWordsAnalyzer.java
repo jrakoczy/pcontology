@@ -37,7 +37,7 @@ public class KeyWordsAnalyzer {
 
 		keywords = algorithm.searchOccurrences(text);
 
-		return CollectionUtils.sortByValuesAscending(keywords);
+		return CollectionUtils.sortByValuesDescending(keywords);
 	}
 
 	/**

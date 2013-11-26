@@ -1,5 +1,6 @@
 package pl.edu.agh.pcontology.tests;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -14,14 +15,13 @@ import pl.edu.agh.pcontology.textprocessing.algorithms.KeyWordsAlgorithm;
 public class TestMain {
 
 	public static void main(String[] args) throws IOException {
-		String text = "This. A.C.C. is a random random sentence sentence agaga bababa gagasg.";
 		KeyWordsAlgorithm algo = new BasicKeyWordsCounter();
 		KeyWordsAnalyzer ana = new KeyWordsAnalyzer.Builder(algo).preprocessor(
 				new TextPreprocessor("stopwords.txt")).build();
 
 		Set<Map.Entry<String, Long>> set = null;
 		try {
-			 set = ana.findKeyWords(text);
+			 set = ana.findKeyWords(new FileReader("sample_text.txt"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,7 +33,6 @@ public class TestMain {
 			Entry<String, Long> e = it.next();
 			System.out.println(e.getKey() + " " + e.getValue());
 		}
-		
 		
 	}
 }

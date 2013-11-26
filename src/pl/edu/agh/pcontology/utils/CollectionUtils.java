@@ -39,7 +39,7 @@ public final class CollectionUtils {
 	        new Comparator<Map.Entry<K,V>>() {
 	            @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
 	                int result =  e2.getValue().compareTo(e1.getValue());
-	                return result != 0 ? result : 1;
+	                return result != 0 ? result : 1;  //saves equal entries
 	            }
 	        }
 	    );
