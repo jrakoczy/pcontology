@@ -69,33 +69,16 @@ public class TextPreprocessor {
 	 * @throws IOException
 	 */
 	public String stemWords(String text) throws IOException {
-		//StringBuilder sb = new StringBuilder();
-
-		//PorterStemmer stemmer = new PorterStemmer();
 		TokenStream tokenStream = new StandardTokenizer(Version.LUCENE_46,
 				new StringReader(text));
 		tokenStream = new PorterStemFilter(tokenStream);
 		tokenStream.reset(); // mandatory
 
 		return tokenStreamToString(tokenStream);
+		
+		//TODO: handle non-alphanumerical chars and punctation marks(acronyms).
 	}
 
-	/**
-	 * Stems a word using Porter's algorithm.
-	 * 
-	 * @param word
-	 * @param stemmer
-	 * @return stemmed word
-	 */
-	private String stemSingleWord(String word, PorterStemmer stemmer) {
-		word = word.toLowerCase();
-		stemmer.setCurrent(word);
-
-		if (stemmer.stem())
-			return stemmer.getCurrent();
-		else
-			return null;
-	}
 
 	/**
 	 * Translates {@code TokenStream} into {@code String}.
