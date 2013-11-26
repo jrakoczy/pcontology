@@ -33,17 +33,16 @@ public class TextPreprocessor {
 	public TextPreprocessor(String stopWordsPath) {
 		this.stopWordsPath = stopWordsPath;
 	}
-	
+
 	/**
 	 * Aggregates preprocessing methods.<br/>
-	 * Removes stop words.
-	 * Stems words in text.
+	 * Removes stop words. Stems words in text.
 	 * 
 	 * @param text
 	 * @return
 	 * @throws IOException
 	 */
-	public String preprocess(String text) throws IOException{
+	public String preprocess(String text) throws IOException {
 		text = removeStopWords(text);
 		return stemWords(text);
 	}
@@ -88,10 +87,9 @@ public class TextPreprocessor {
 		tokenStream.reset(); // mandatory
 
 		return tokenStreamToString(tokenStream);
-		
-		//TODO: handle non-alphanumerical chars and punctation marks(acronyms).
-	}
 
+		// TODO: handle non-alphanumerical chars and punctation marks(acronyms).
+	}
 
 	/**
 	 * Translates {@code TokenStream} into {@code String}.
@@ -104,15 +102,18 @@ public class TextPreprocessor {
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
 
-		CharTermAttribute token = tokenStream
-				.getAttribute(CharTermAttribute.class);
+		try {
+			CharTermAttribute token = tokenStream
+					.getAttribute(CharTermAttribute.class);
 
-		while (tokenStream.incrementToken()) {
-			sb.append(token.toString());
-			sb.append(" ");
+			while (tokenStream.incrementToken()) {
+				sb.append(token.toString());
+				sb.append(" ");
+			}
+		} finally {
+			tokenStream.close(); // mandatory
 		}
 
-		tokenStream.close(); // mandatory
 		return sb.toString();
 	}
 

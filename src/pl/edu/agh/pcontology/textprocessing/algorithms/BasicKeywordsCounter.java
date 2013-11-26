@@ -12,23 +12,31 @@ import org.apache.lucene.util.Version;
 
 public class BasicKeywordsCounter implements KeywordsAlgorithm {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<String, Long> searchOccurrences(String text) throws IOException {
 		HashMap<String, Long> keywords = new HashMap<String, Long>();
 		TokenStream tokenStream = new StandardTokenizer(Version.LUCENE_46,
 				new StringReader(text));
+		tokenStream.reset(); // mandatory
 
 		CharTermAttribute token = tokenStream
 				.getAttribute(CharTermAttribute.class);
 
-		while (tokenStream.incrementToken()) {
-			String term = token.toString();
-			long val = 1;
+		try {
+			while (tokenStream.incrementToken()) {
+				String term = token.toString();
+				long val = 1;
 
-			if (keywords.containsKey(term))
-				val = keywords.get(term);
+				if (keywords.containsKey(term))
+					val = keywords.get(term) + 1;
 
-			keywords.put(term, val);
+				keywords.put(term, val);
+			}
+		} finally {
+			tokenStream.close();
 		}
 
 		return keywords;
