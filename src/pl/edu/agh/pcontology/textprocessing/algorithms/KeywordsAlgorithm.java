@@ -8,7 +8,7 @@ import java.util.Map;
  *
  *@author kuba
  */
-public interface KeywordsAlgorithm {
+public interface KeyWordsAlgorithm {
 	
 	/**
 	 * Searches for occurrences of key words.<br/>

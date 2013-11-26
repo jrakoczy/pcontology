@@ -13,8 +13,8 @@ public final class FileUtils {
 	 * @return string
 	 * @throws IOException
 	 */
-	public static String loadFileIntoString(String filename) throws IOException {
-		BufferedReader breader = new BufferedReader(new FileReader(filename));
+	public static String loadFileIntoString(FileReader freader) throws IOException {
+		BufferedReader breader = new BufferedReader(freader);
 		StringBuilder builder = new StringBuilder();
 
 		try {

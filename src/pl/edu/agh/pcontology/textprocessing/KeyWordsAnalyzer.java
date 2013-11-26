@@ -1,16 +1,25 @@
 package pl.edu.agh.pcontology.textprocessing;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 import java.util.SortedSet;
 
-import pl.edu.agh.pcontology.textprocessing.algorithms.KeywordsAlgorithm;
+import pl.edu.agh.pcontology.textprocessing.algorithms.KeyWordsAlgorithm;
 import pl.edu.agh.pcontology.utils.CollectionUtils;
+import pl.edu.agh.pcontology.utils.FileUtils;
 
+/**
+ * Class providing methods for key word analysis.<br/>
+ * Creates statistics for occurrences of particular words.
+ * 
+ * @author kuba
+ * @version 1.0
+ */
 public class KeyWordsAnalyzer {
 
 	private TextPreprocessor preprocessor;
-	private KeywordsAlgorithm algorithm;
+	private KeyWordsAlgorithm algorithm;
 	private Map<String, Long> keywords;
 
 	/**
@@ -29,6 +38,20 @@ public class KeyWordsAnalyzer {
 		keywords = algorithm.searchOccurrences(text);
 
 		return CollectionUtils.sortByValuesAscending(keywords);
+	}
+
+	/**
+	 * Searches for keywords in a file.
+	 * 
+	 * @param freader
+	 * @return sorted keywords
+	 * @throws IOException
+	 * @see {@code findKeyWords}
+	 */
+	public SortedSet<Map.Entry<String, Long>> findKeyWords(FileReader freader)
+			throws IOException {
+		String text = FileUtils.loadFileIntoString(freader);
+		return findKeyWords(text);
 	}
 
 	/**
@@ -74,14 +97,14 @@ public class KeyWordsAnalyzer {
 	 */
 	public static class Builder {
 		private TextPreprocessor preprocessor;
-		private KeywordsAlgorithm algorithm;
+		private KeyWordsAlgorithm algorithm;
 
 /**
 		 * Builder constructor. {@code KeyWord algorithm is mandatory field.
 		 * 
 		 * @param algorithm
 		 */
-		public Builder(KeywordsAlgorithm algorithm) {
+		public Builder(KeyWordsAlgorithm algorithm) {
 			this.algorithm = algorithm;
 		}
 
@@ -106,6 +129,7 @@ public class KeyWordsAnalyzer {
 		}
 	}
 
+	// private
 	/**
 	 * Private constructor. Instantiate using {@code Builder}.
 	 * 

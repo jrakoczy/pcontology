@@ -18,7 +18,7 @@ import org.apache.lucene.util.Version;
  * Text preprocessing utils.
  * 
  * @author kuba
- * @version 1.0
+ * @version 1.1
  */
 public class TextPreprocessor {
 
@@ -88,8 +88,20 @@ public class TextPreprocessor {
 
 		return tokenStreamToString(tokenStream);
 
-		// TODO: handle non-alphanumerical chars and punctation marks(acronyms).
+		// TODO: handle non-alphanumerical chars and punctuation
+		// marks(acronyms).
 	}
+
+	/**
+	 * Sets a path to a stop words file.
+	 * 
+	 * @param stopWordsPath
+	 */
+	public void setStopWordsPath(String stopWordsPath) {
+		this.stopWordsPath = stopWordsPath;
+	}
+
+	// private
 
 	/**
 	 * Translates {@code TokenStream} into {@code String}.
@@ -143,14 +155,4 @@ public class TextPreprocessor {
 
 		return stopWords;
 	}
-
-	/**
-	 * Sets a path to a stop words file.
-	 * 
-	 * @param stopWordsPath
-	 */
-	public void setStopWordsPath(String stopWordsPath) {
-		this.stopWordsPath = stopWordsPath;
-	}
-
 }
