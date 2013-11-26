@@ -16,7 +16,10 @@ public class KeyWordsAnalyzer{
 	
 	
 	public SortedSet<Map.Entry<String, Long>> findKeyWords(String text) throws IOException{
-		text = preprocessor.preprocess(text);
+		
+		if(preprocessor != null)
+			text = preprocessor.preprocess(text);
+		
 		keywords = algorithm.searchOcurrences(text);
 		
 		return CollectionUtils.sortByValuesAscending(keywords);
