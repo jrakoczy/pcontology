@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class CollectionUtils {
+public final class CollectionUtils {
 	
 	/**
 	 * Sorts entry set by values in ascending order.
