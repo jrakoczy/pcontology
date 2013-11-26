@@ -10,10 +10,10 @@ import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
 
-public class BasicKeywordsCounter implements SearchAlgorithm {
+public class BasicKeywordsCounter implements KeywordsAlgorithm {
 
 	@Override
-	public Map<String, Long> searchText(String text) throws IOException {
+	public Map<String, Long> searchOcurrences(String text) throws IOException {
 		HashMap<String, Long> keywords = new HashMap<String, Long>();
 		TokenStream tokenStream = new StandardTokenizer(Version.LUCENE_46,
 				new StringReader(text));

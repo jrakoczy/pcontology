@@ -34,6 +34,11 @@ public class TextPreprocessor {
 	public TextPreprocessor(String stopWordsPath) {
 		this.stopWordsPath = stopWordsPath;
 	}
+	
+	public String preprocess(String text) throws IOException{
+		text = removeStopWords(text);
+		return stemWords(text);
+	}
 
 	/**
 	 * Removes stop words from {@code text}.<br/>

@@ -13,7 +13,7 @@ public class CollectionUtils {
 	 * @param map
 	 * @return sorted entry set.
 	 */
-	static <K,V extends Comparable<? super V>>
+	public static <K,V extends Comparable<? super V>>
 	SortedSet<Map.Entry<K,V>> sortByValuesAscending(Map<K,V> map) {
 	    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
 	        new Comparator<Map.Entry<K,V>>() {
@@ -32,7 +32,7 @@ public class CollectionUtils {
 	 * @param map
 	 * @return sorted entry set.
 	 */
-	static <K,V extends Comparable<? super V>>
+	public static <K,V extends Comparable<? super V>>
 	SortedSet<Map.Entry<K,V>> sortByValuesDescending(Map<K,V> map) {
 	    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
 	        new Comparator<Map.Entry<K,V>>() {
