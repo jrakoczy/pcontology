@@ -7,6 +7,11 @@ import java.util.TreeSet;
 
 public final class CollectionUtils {
 	
+	//you mustn't instantiate this class
+	private CollectionUtils(){
+		
+	}
+	
 	/**
 	 * Sorts entry set by values in ascending order.
 	 * 

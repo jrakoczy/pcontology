@@ -33,6 +33,11 @@ public class TestMain {
 			Entry<String, Long> e = it.next();
 			System.out.println(e.getKey() + " " + e.getValue());
 		}
-		
+	}
+	
+	public static class StaticClass{
+	}
+	
+	public class InstClass{
 	}
 }

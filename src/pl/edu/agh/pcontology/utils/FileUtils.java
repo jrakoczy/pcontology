@@ -6,6 +6,11 @@ import java.io.IOException;
 
 public final class FileUtils {
 
+	//you mustn't instantiate this class
+	private FileUtils(){
+		
+	}
+	
 	/**
 	 * Loads a file into string.
 	 * 
