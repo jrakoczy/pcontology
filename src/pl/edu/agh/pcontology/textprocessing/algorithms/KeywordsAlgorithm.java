@@ -4,5 +4,5 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface KeywordsAlgorithm {
-	public Map<String, Long> searchOcurrences(String text) throws IOException;
+	public Map<String, Long> searchOccurrences(String text) throws IOException;
 }

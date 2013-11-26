@@ -13,7 +13,6 @@ import org.apache.lucene.analysis.en.PorterStemFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
-import org.tartarus.snowball.ext.PorterStemmer;
 
 /**
  * Text preprocessing utils.
@@ -35,6 +34,15 @@ public class TextPreprocessor {
 		this.stopWordsPath = stopWordsPath;
 	}
 	
+	/**
+	 * Aggregates preprocessing methods.<br/>
+	 * Removes stop words.
+	 * Stems words in text.
+	 * 
+	 * @param text
+	 * @return
+	 * @throws IOException
+	 */
 	public String preprocess(String text) throws IOException{
 		text = removeStopWords(text);
 		return stemWords(text);
