@@ -7,7 +7,7 @@ import pl.edu.agh.pcontology.textprocessing.TextPreprocessor;
 public class TestMain {
 
 	public static void main(String[] args) {
-		String text = "This is a random sentence.";
+		String text = "This. A.C.C. is a random sentence.";
 		TextPreprocessor preprocessor = new TextPreprocessor("stopwords.txt");
 		try {
 			System.out.println(preprocessor.removeStopWords(text));

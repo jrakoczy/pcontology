@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.StopFilter;
+import org.apache.lucene.analysis.en.PorterStemFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
@@ -68,31 +69,15 @@ public class TextPreprocessor {
 	 * @throws IOException
 	 */
 	public String stemWords(String text) throws IOException {
-		StringBuilder sb = new StringBuilder();
+		//StringBuilder sb = new StringBuilder();
 
-		PorterStemmer stemmer = new PorterStemmer();
+		//PorterStemmer stemmer = new PorterStemmer();
 		TokenStream tokenStream = new StandardTokenizer(Version.LUCENE_46,
 				new StringReader(text));
+		tokenStream = new PorterStemFilter(tokenStream);
 		tokenStream.reset(); // mandatory
 
-		CharTermAttribute token = tokenStream
-				.getAttribute(CharTermAttribute.class);
-
-		while (tokenStream.incrementToken()) {
-
-			String word = token.toString();
-			String stemmed_word = stemSingleWord(word, stemmer);
-
-			if (stemmed_word != null)
-				sb.append(stemmed_word);
-			else
-				sb.append(word);
-
-			sb.append(" ");
-		}
-
-		tokenStream.close(); // mandatory
-		return sb.toString();
+		return tokenStreamToString(tokenStream);
 	}
 
 	/**
