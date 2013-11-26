@@ -13,8 +13,8 @@ import pl.edu.agh.pcontology.textprocessing.algorithms.KeyWordsAlgorithm;
 
 public class TestMain {
 
-	public static void main(String[] args) {
-		String text = "This. A.C.C. is a random random sentence sentence.";
+	public static void main(String[] args) throws IOException {
+		String text = "This. A.C.C. is a random random sentence sentence agaga bababa gagasg.";
 		KeyWordsAlgorithm algo = new BasicKeyWordsCounter();
 		KeyWordsAnalyzer ana = new KeyWordsAnalyzer.Builder(algo).preprocessor(
 				new TextPreprocessor("stopwords.txt")).build();
@@ -27,10 +27,13 @@ public class TestMain {
 			e.printStackTrace();
 		}
 		
+		
 		Iterator<Entry<String, Long>> it = set.iterator();
 		while(it.hasNext()){
 			Entry<String, Long> e = it.next();
 			System.out.println(e.getKey() + " " + e.getValue());
 		}
+		
+		
 	}
 }

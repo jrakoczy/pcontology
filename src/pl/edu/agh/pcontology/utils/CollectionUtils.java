@@ -18,7 +18,8 @@ public final class CollectionUtils {
 	    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
 	        new Comparator<Map.Entry<K,V>>() {
 	            @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
-	                return e1.getValue().compareTo(e2.getValue());
+	                int result = e1.getValue().compareTo(e2.getValue());
+	            	return result != 0 ? result : 1;   //saves equal entries
 	            }
 	        }
 	    );
@@ -37,7 +38,8 @@ public final class CollectionUtils {
 	    SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
 	        new Comparator<Map.Entry<K,V>>() {
 	            @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
-	                return e2.getValue().compareTo(e1.getValue());
+	                int result =  e2.getValue().compareTo(e1.getValue());
+	                return result != 0 ? result : 1;
 	            }
 	        }
 	    );
