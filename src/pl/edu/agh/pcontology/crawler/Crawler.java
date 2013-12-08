@@ -57,12 +57,13 @@ public class Crawler extends WebCrawler {
 			String anchor = page.getWebURL().getAnchor();
 			Writer writer = null;
 			
-			if(url.toString().contains("description")){
+			if(url.toString().contains("search")){
 				Document doc = Jsoup.parse(html);
-				Elements desc = doc.select("#description .printTableText");
+				Elements desc = doc.select(".publicationInfoColumn .highlight");
 				
-				for(Element e : desc)
+				for(Element e: desc)
 					System.out.println(e.text());
+					
 			}
 		}
 		System.out.println("------------------------");
