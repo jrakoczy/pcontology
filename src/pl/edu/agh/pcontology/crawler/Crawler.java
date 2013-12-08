@@ -2,7 +2,7 @@ package pl.edu.agh.pcontology.crawler;
 
 import java.util.regex.Pattern;
 
-import pl.edu.agh.pcontology.crawler.htmlprocessing.AmbigousContentException;
+import pl.edu.agh.pcontology.crawler.htmlprocessing.AmbiguousContentException;
 import pl.edu.agh.pcontology.crawler.htmlprocessing.EspaceHTMLProcessor;
 import pl.edu.agh.pcontology.crawler.htmlprocessing.PatentHTMLProcessor;
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -25,6 +25,7 @@ public class Crawler extends WebCrawler {
 					+ "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
 	private final static String urlFilter = "http://worldwide.espacenet.com/publicationDetails/";
+	private final static String localeConstr = "locale=en";
 
 	/**
 	 * Sets filters determining whether site should be fetched or not.
@@ -35,9 +36,8 @@ public class Crawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(WebURL url) {
 		String href = url.getURL();
-		return !FILTERS.matcher(href).matches() && href.startsWith(urlFilter); // patent
-																				// info
-																				// only
+		return !FILTERS.matcher(href).matches() && href.startsWith(urlFilter)
+				&& href.contains(localeConstr); 
 
 	}
 
@@ -48,7 +48,7 @@ public class Crawler extends WebCrawler {
 	 *            page
 	 */
 	// TODO: implement logic of this method
-	//TODO: exclude non-english info
+	// TODO: exclude non-english info
 	@Override
 	public void visit(Page page) {
 
@@ -81,7 +81,7 @@ public class Crawler extends WebCrawler {
 					System.out.println("IPC: " + htmlProc.getIPC(html));
 				}
 
-			} catch (AmbigousContentException e) {
+			} catch (AmbiguousContentException e) {
 				e.printStackTrace();
 			}
 

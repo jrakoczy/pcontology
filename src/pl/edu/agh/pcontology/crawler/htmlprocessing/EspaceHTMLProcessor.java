@@ -58,12 +58,12 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * in url).
 	 */
 	@Override
-	public String getApplicationID(String html) throws AmbigousContentException {
+	public String getApplicationID(String html) throws AmbiguousContentException {
 		Document doc = Jsoup.parse(html);
 		Elements content = doc.select(ID_CSS_QUERY);
 
 		if (content.size() != 2)
-			throw new AmbigousContentException();
+			throw new AmbiguousContentException();
 
 		String countryCode = content.get(0).text();
 		String appNumber = content.get(1).text();
@@ -78,7 +78,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * in url).
 	 */
 	@Override
-	public String getInventors(String html) throws AmbigousContentException {
+	public String getInventors(String html) throws AmbiguousContentException {
 		Element inventors = getContentbyQuery(html, INV_CSS_QUERY);
 		return inventors.ownText(); // trims headers
 	}
@@ -92,7 +92,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * 'biblio' in url).
 	 */
 	@Override
-	public String getAbstract(String html) throws AmbigousContentException {
+	public String getAbstract(String html) throws AmbiguousContentException {
 		Element abstr = getContentbyQuery(html, ABSTRACT_CSS_QUERY);
 		return abstr.text();
 	}
@@ -122,7 +122,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * 'biblio' in url).
 	 */
 	@Override
-	public String getIPC(String html) throws AmbigousContentException {
+	public String getIPC(String html) throws AmbiguousContentException {
 		Element ipc = getContentbyQuery(html, IPC_CSS_QUERY);
 		return ipc.text();
 	}
@@ -134,7 +134,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * 'biblio' in url).
 	 */
 	@Override
-	public String getCPC(String html) throws AmbigousContentException {
+	public String getCPC(String html) throws AmbiguousContentException {
 		Element cpc = getContentbyQuery(html, CPC_CSS_QUERY);
 		return cpc.text();
 	}
@@ -148,7 +148,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * 'description' in url).
 	 */
 	@Override
-	public String getDescription(String html) throws AmbigousContentException {
+	public String getDescription(String html) throws AmbiguousContentException {
 		Element description = getContentbyQuery(html, DESC_CSS_QUERY);
 		return description.text();
 	}
@@ -162,7 +162,7 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * 'claims' in url).
 	 */
 	@Override
-	public String getClaim(String html) throws AmbigousContentException {
+	public String getClaim(String html) throws AmbiguousContentException {
 		Element claim = getContentbyQuery(html, CLAIM_CSS_QUERY);
 		return claim.text();
 	}
@@ -175,15 +175,15 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	 * @param html
 	 * @param cssQuery
 	 * @return
-	 * @throws AmbigousContentException
+	 * @throws AmbiguousContentException
 	 */
 	private Element getContentbyQuery(String html, String cssQuery)
-			throws AmbigousContentException {
+			throws AmbiguousContentException {
 		Document doc = Jsoup.parse(html);
 		Elements content = doc.select(cssQuery);
 
 		if (content.size() != 1)
-			throw new AmbigousContentException();
+			throw new AmbiguousContentException();
 
 		return content.get(0);
 	}
