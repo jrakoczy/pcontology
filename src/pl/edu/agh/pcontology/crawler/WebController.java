@@ -11,7 +11,7 @@ public class WebController {
 	public static void main(String[] args) throws Exception {
 
 		String crawlStorageFolder = "crawled_sites";
-		int numberOfCrawlers = 10;
+		int numberOfCrawlers = 1;
 
 		CrawlConfig config = new CrawlConfig();
 
@@ -21,7 +21,6 @@ public class WebController {
 		config.setMaxPagesToFetch(1000);
 		config.setResumableCrawling(false);
 
-	
 		PageFetcher pageFetcher = new PageFetcher(config);
 		RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
 		RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig,
@@ -31,6 +30,6 @@ public class WebController {
 		controller
 				.addSeed("http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP&query=WO2013154454");
 		controller.start(Crawler.class, numberOfCrawlers);
-		
+
 	}
 }

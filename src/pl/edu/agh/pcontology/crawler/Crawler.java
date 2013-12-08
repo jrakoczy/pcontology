@@ -8,6 +8,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import pl.edu.agh.pcontology.crawler.htmlprocessing.AmbigousContentException;
+import pl.edu.agh.pcontology.crawler.htmlprocessing.EspaceHTMLProcessor;
+import pl.edu.agh.pcontology.crawler.htmlprocessing.PatentHTMLProcessor;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -27,6 +30,8 @@ public class Crawler extends WebCrawler {
 					+ "|wav|avi|mov|mpeg|ram|m4v|pdf"
 					+ "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
+	private final static String urlFilter = "http://worldwide.espacenet.com/publicationDetails/";
+
 	/**
 	 * Sets filters determining whether site should be fetched or not.
 	 * 
@@ -36,17 +41,19 @@ public class Crawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(WebURL url) {
 		String href = url.getURL();
-		return !FILTERS.matcher(href).matches()
-				&& href.startsWith("http://worldwide.espacenet.com/publicationDetails/"); // patent
-																							// information
-																							// only
+		return !FILTERS.matcher(href).matches() && href.startsWith(urlFilter); // patent
+																				// info
+																				// only
+
 	}
 
 	/**
 	 * Processes fetched data.
 	 * 
-	 * @param visited page 
+	 * @param visited
+	 *            page
 	 */
+	// TODO: implement logic of this method
 	@Override
 	public void visit(Page page) {
 
@@ -54,19 +61,37 @@ public class Crawler extends WebCrawler {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			String html = htmlParseData.getHtml();
 			String url = page.getWebURL().getURL();
-			String anchor = page.getWebURL().getAnchor();
-			Writer writer = null;
-			
-			if(url.toString().contains("search")){
-				Document doc = Jsoup.parse(html);
-				Elements desc = doc.select(".publicationInfoColumn .highlight");
-				
-				for(Element e: desc)
-					System.out.println(e.text());
-					
+			PatentHTMLProcessor htmlProc = EspaceHTMLProcessor.getInstance();
+
+			try {
+				if (url.toString().contains("search")) {
+					System.out.println("Inventors: "
+							+ htmlProc.getInventors(html));
+					System.out
+							.println("ID: " + htmlProc.getApplicationID(html));
+				}
+
+				if (url.toString().contains("description"))
+					System.out
+							.println("Desc: " + htmlProc.getDescription(html));
+
+				if (url.toString().contains("claim"))
+					System.out.println("Claim: " + htmlProc.getClaim(html));
+
+				if (url.toString().contains("biblio")) {
+					System.out.println("Title: " + htmlProc.getTitle(html));
+					System.out.println("Abstract: "
+							+ htmlProc.getAbstract(html));
+					System.out.println("CPC: " + htmlProc.getCPC(html));
+					System.out.println("IPC: " + htmlProc.getIPC(html));
+				}
+
+			} catch (AmbigousContentException e) {
+				e.printStackTrace();
 			}
+
 		}
-		System.out.println("------------------------");
+
 	}
-		
+
 }
