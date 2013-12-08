@@ -1,12 +1,6 @@
 package pl.edu.agh.pcontology.crawler;
 
-import java.io.Writer;
 import java.util.regex.Pattern;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import pl.edu.agh.pcontology.crawler.htmlprocessing.AmbigousContentException;
 import pl.edu.agh.pcontology.crawler.htmlprocessing.EspaceHTMLProcessor;
