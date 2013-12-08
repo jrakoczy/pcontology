@@ -18,7 +18,7 @@ public class WebController {
 		config.setCrawlStorageFolder(crawlStorageFolder);
 		config.setPolitenessDelay(1000);
 		config.setMaxDepthOfCrawling(2);
-		config.setMaxPagesToFetch(10);
+		config.setMaxPagesToFetch(1000);
 		config.setResumableCrawling(false);
 
 	
@@ -29,7 +29,8 @@ public class WebController {
 		CrawlController controller = new CrawlController(config, pageFetcher,
 				robotstxtServer);
 		controller
-				.addSeed("http://worldwide.espacenet.com/searchResults?compact=false&ST=singleline&query=CA2831978&locale=en_EP&DB=worldwide.espacenet.com");
+				.addSeed("http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP&query=WO2013154454");
 		controller.start(Crawler.class, numberOfCrawlers);
+		
 	}
 }

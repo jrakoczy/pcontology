@@ -1,14 +1,17 @@
 package pl.edu.agh.pcontology.crawler;
 
+import java.io.Writer;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
-
-import java.util.List;
-import java.util.regex.Pattern;
-
-import org.apache.http.Header;
 
 /**
  * Class representing a web crawler.
@@ -32,7 +35,7 @@ public class Crawler extends WebCrawler {
 	 */
 	@Override
 	public boolean shouldVisit(WebURL url) {
-		String href = url.getURL().toLowerCase();
+		String href = url.getURL();
 		return !FILTERS.matcher(href).matches()
 				&& href.startsWith("http://worldwide.espacenet.com/publicationDetails/"); // patent
 																							// information
@@ -49,12 +52,20 @@ public class Crawler extends WebCrawler {
 
 		if (page.getParseData() instanceof HtmlParseData) {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-			String text = htmlParseData.getText();
 			String html = htmlParseData.getHtml();
-			List<WebURL> links = htmlParseData.getOutgoingUrls();
-
-			System.out.println(html);
+			String url = page.getWebURL().getURL();
+			String anchor = page.getWebURL().getAnchor();
+			Writer writer = null;
+			
+			if(url.toString().contains("description")){
+				Document doc = Jsoup.parse(html);
+				Elements desc = doc.select("#description .printTableText");
+				
+				for(Element e : desc)
+					System.out.println(e.text());
+			}
 		}
 		System.out.println("------------------------");
 	}
+		
 }
