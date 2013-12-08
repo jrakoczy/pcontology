@@ -54,6 +54,7 @@ public class Crawler extends WebCrawler {
 	 *            page
 	 */
 	// TODO: implement logic of this method
+	//TODO: exclude non-english info
 	@Override
 	public void visit(Page page) {
 

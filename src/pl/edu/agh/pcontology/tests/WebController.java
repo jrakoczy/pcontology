@@ -1,5 +1,6 @@
-package pl.edu.agh.pcontology.crawler;
+package pl.edu.agh.pcontology.tests;
 
+import pl.edu.agh.pcontology.crawler.Crawler;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
