@@ -38,10 +38,10 @@ public class Crawler extends WebCrawler {
 					+ "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
 	// domain filter
-	private final static String urlFilter = "http://worldwide.espacenet.com/publicationDetails/";
+	private final static String URL_FILTER = "http://worldwide.espacenet.com/publicationDetails/";
 	
 	//language filter
-	private final static String localeConstr = "locale=en";
+	private final static String LOCALE_CONSTR = "locale=en";
 
 	/**
 	 * Keys are names of patent properties. Values are data retrieved by crawler.
@@ -59,8 +59,8 @@ public class Crawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(WebURL url) {
 		String href = url.getURL();
-		return !FILTERS.matcher(href).matches() && href.startsWith(urlFilter)
-				&& href.contains(localeConstr);
+		return !FILTERS.matcher(href).matches() && href.startsWith(URL_FILTER)
+				&& href.contains(LOCALE_CONSTR);
 
 	}
 

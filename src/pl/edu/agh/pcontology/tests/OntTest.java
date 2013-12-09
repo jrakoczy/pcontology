@@ -1,12 +1,11 @@
 package pl.edu.agh.pcontology.tests;
 
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class OntTest {
+	private final static String NS = "http://agh.edu.pl/pcontology/"
+	
 	public static void main(String[] args){
 		/*(Model model = ModelFactory.createDefaultModel();
         
@@ -20,12 +19,8 @@ public class OntTest {
 
         model.write(System.out, "TURTLE");*/
 		
-		OntModel mdl = ModelFactory.createOntologyModel();
-		OntClass patent = mdl.createClass("http://example.org/patent");
-		OntClass author = mdl.createClass("http://example.org/author");
-		Property has = mdl.createProperty("has");
-		mdl.add(patent, FOAF.maker, author);
-		mdl.write(System.out, "TURTLE");
+		Model mdl = ModelFactory.createOntologyModel();
+		Resource patent = mdl.createResource(uri)
 		
 	}
 
