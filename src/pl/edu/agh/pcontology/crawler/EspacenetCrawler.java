@@ -18,7 +18,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
  * @author kuba
  * @version 1.0
  */
-public class Crawler extends WebCrawler {
+public class EspacenetCrawler extends WebCrawler {
 
 	// localData keys
 	private final static String ID_KEY = "appID";

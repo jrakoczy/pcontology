@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import pl.edu.agh.pcontology.crawler.Crawler;
+import pl.edu.agh.pcontology.crawler.EspacenetCrawler;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
@@ -34,7 +34,7 @@ public class WebController {
 				robotstxtServer);
 		controller
 				.addSeed("http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP&query=WO2013154454");
-		controller.start(Crawler.class, numberOfCrawlers);
+		controller.start(EspacenetCrawler.class, numberOfCrawlers);
 		List<Object> data = controller.getCrawlersLocalData();
 		
 		for(Object o : data){
