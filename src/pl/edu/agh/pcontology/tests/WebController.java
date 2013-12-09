@@ -1,5 +1,9 @@
 package pl.edu.agh.pcontology.tests;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import pl.edu.agh.pcontology.crawler.Crawler;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -31,6 +35,14 @@ public class WebController {
 		controller
 				.addSeed("http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP&query=WO2013154454");
 		controller.start(Crawler.class, numberOfCrawlers);
+		List<Object> data = controller.getCrawlersLocalData();
+		
+		for(Object o : data){
+			if(o instanceof Map){
+				for(Entry<String, String> e: ((Map<String, String>)o).entrySet())
+					System.out.println(e.getKey() + " " + e.getValue());
+			}
+		}
 
 	}
 }

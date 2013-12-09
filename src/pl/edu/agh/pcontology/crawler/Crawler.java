@@ -1,5 +1,7 @@
 package pl.edu.agh.pcontology.crawler;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import pl.edu.agh.pcontology.crawler.htmlprocessing.AmbiguousContentException;
@@ -18,14 +20,35 @@ import edu.uci.ics.crawler4j.url.WebURL;
  */
 public class Crawler extends WebCrawler {
 
+	// localData keys
+	private final static String ID_KEY = "appID";
+	private final static String TITLE_KEY = "title";
+	private final static String INVENTOR_KEY = "inventor";
+	private final static String DESC_KEY = "description";
+	private final static String ABSTR_KEY = "abstract";
+	private final static String IPC_KEY = "ipc";
+	private final static String CPC_KEY = "cpc";
+	private final static String CLAIM_KEY = "claim";
+
+	// extension filters
 	private final static Pattern FILTERS = Pattern
 			.compile(".*(\\.(css|js|bmp|gif|jpe?g"
 					+ "|png|tiff?|mid|mp2|mp3|mp4"
 					+ "|wav|avi|mov|mpeg|ram|m4v|pdf"
 					+ "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
+	// domain filter
 	private final static String urlFilter = "http://worldwide.espacenet.com/publicationDetails/";
+	
+	//language filter
 	private final static String localeConstr = "locale=en";
+
+	/**
+	 * Keys are names of patent properties. Values are data retrieved by crawler.
+	 */
+	private Map<String, String> localData = new HashMap<String, String>();
+	
+	PatentHTMLProcessor htmlProc = EspaceHTMLProcessor.getInstance();
 
 	/**
 	 * Sets filters determining whether site should be fetched or not.
@@ -37,7 +60,7 @@ public class Crawler extends WebCrawler {
 	public boolean shouldVisit(WebURL url) {
 		String href = url.getURL();
 		return !FILTERS.matcher(href).matches() && href.startsWith(urlFilter)
-				&& href.contains(localeConstr); 
+				&& href.contains(localeConstr);
 
 	}
 
@@ -47,8 +70,6 @@ public class Crawler extends WebCrawler {
 	 * @param visited
 	 *            page
 	 */
-	// TODO: implement logic of this method
-	// TODO: exclude non-english info
 	@Override
 	public void visit(Page page) {
 
@@ -56,31 +77,19 @@ public class Crawler extends WebCrawler {
 			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 			String html = htmlParseData.getHtml();
 			String url = page.getWebURL().getURL();
-			PatentHTMLProcessor htmlProc = EspaceHTMLProcessor.getInstance();
 
-			
 			try {
-				if (url.toString().contains("search")) {
-					System.out.println("Inventors: "
-							+ htmlProc.getInventors(html));
-					System.out
-							.println("ID: " + htmlProc.getApplicationID(html));
-				}
+				if (url.toString().contains("search"))
+					processSearchPage(html);
 
 				if (url.toString().contains("description"))
-					System.out
-							.println("Desc: " + htmlProc.getDescription(html));
+					processDescPage(html);
 
 				if (url.toString().contains("claim"))
-					System.out.println("Claim: " + htmlProc.getClaim(html));
+					processClaimPage(html);
 
-				if (url.toString().contains("biblio")) {
-					System.out.println("Title: " + htmlProc.getTitle(html));
-					System.out.println("Abstract: "
-							+ htmlProc.getAbstract(html));
-					System.out.println("CPC: " + htmlProc.getCPC(html));
-					System.out.println("IPC: " + htmlProc.getIPC(html));
-				}
+				if (url.toString().contains("biblio"))
+					processBiblioPage(html);
 
 			} catch (AmbiguousContentException e) {
 				e.printStackTrace();
@@ -90,4 +99,75 @@ public class Crawler extends WebCrawler {
 
 	}
 
+	/**
+	 * Sends retrieved data to {@CrawlController}
+	 * 
+	 * @return map with stored data
+	 */
+	public Object getMyLocalData() {
+		return localData;
+	}
+
+	/**
+	 * Processes bibliographic page extracting patent title, abstract, cpc and
+	 * ipc. Then stores the data in {@code localData}.
+	 * 
+	 * @param html
+	 * @throws AmbiguousContentException
+	 */
+	private void processBiblioPage(String html)
+			throws AmbiguousContentException {
+		String title = htmlProc.getTitle(html);
+		localData.put(TITLE_KEY, title);
+
+		String abstr = htmlProc.getAbstract(html);
+		localData.put(ABSTR_KEY, abstr);
+
+		String cpc = htmlProc.getCPC(html);
+		localData.put(CPC_KEY, cpc);
+
+		String ipc = htmlProc.getIPC(html);
+		localData.put(IPC_KEY, ipc);
+	}
+
+	/**
+	 * Processes search page extracting patent id and inventors. Then stores the
+	 * data in {@code localData}.
+	 * 
+	 * @param html
+	 * @throws AmbiguousContentException
+	 */
+	private void processSearchPage(String html)
+			throws AmbiguousContentException {
+		String appID = htmlProc.getApplicationID(html);
+		localData.put(ID_KEY, appID);
+
+		String inventors = htmlProc.getInventors(html);
+		localData.put(INVENTOR_KEY, inventors);
+	}
+
+	/**
+	 * Processes claim page extracting patent claim. Then stores the
+	 * data in {@code localData}.
+	 * 
+	 * @param html
+	 * @throws AmbiguousContentException
+	 */
+	private void processClaimPage(String html) throws AmbiguousContentException {
+		String claim = htmlProc.getClaim(html);
+		localData.put(CLAIM_KEY, claim);
+	}
+
+	
+	/**
+	 * Processes search page extracting patent description. Then stores the
+	 * data in {@code localData}.
+	 * 
+	 * @param html
+	 * @throws AmbiguousContentException
+	 */
+	private void processDescPage(String html) throws AmbiguousContentException {
+		String desc = htmlProc.getDescription(html);
+		localData.put(DESC_KEY, desc);
+	}
 }
