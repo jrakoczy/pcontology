@@ -50,6 +50,9 @@ public final class EspaceHTMLProcessor implements PatentHTMLProcessor {
 	}
 
 	// search page info
+	// the following data should be accessed through biblo pages
+	// this is temporary and for convenience purposes only (in order not to clog the database)
+	//TODO: re-implement when boundary for inserts is set 
 
 	/**
 	 * {@inheritDoc}

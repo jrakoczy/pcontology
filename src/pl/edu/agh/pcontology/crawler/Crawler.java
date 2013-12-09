@@ -58,6 +58,7 @@ public class Crawler extends WebCrawler {
 			String url = page.getWebURL().getURL();
 			PatentHTMLProcessor htmlProc = EspaceHTMLProcessor.getInstance();
 
+			
 			try {
 				if (url.toString().contains("search")) {
 					System.out.println("Inventors: "
