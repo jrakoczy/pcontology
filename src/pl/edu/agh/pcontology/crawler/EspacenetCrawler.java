@@ -1,6 +1,8 @@
 package pl.edu.agh.pcontology.crawler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -30,6 +32,19 @@ public class EspacenetCrawler extends WebCrawler {
 	private final static String CPC_KEY = "cpc";
 	private final static String CLAIM_KEY = "claim";
 
+	private final static List<String> dataKeys = new ArrayList<String>();
+
+	static {
+		dataKeys.add(ID_KEY);
+		dataKeys.add(TITLE_KEY);
+		dataKeys.add(INVENTOR_KEY);
+		dataKeys.add(DESC_KEY);
+		dataKeys.add(ABSTR_KEY);
+		dataKeys.add(IPC_KEY);
+		dataKeys.add(CPC_KEY);
+		dataKeys.add(CLAIM_KEY);
+	}
+
 	// extension filters
 	private final static Pattern FILTERS = Pattern
 			.compile(".*(\\.(css|js|bmp|gif|jpe?g"
@@ -39,15 +54,16 @@ public class EspacenetCrawler extends WebCrawler {
 
 	// domain filter
 	private final static String URL_FILTER = "http://worldwide.espacenet.com/publicationDetails/";
-	
-	//language filter
+
+	// language filter
 	private final static String LOCALE_CONSTR = "locale=en";
 
 	/**
-	 * Keys are names of patent properties. Values are data retrieved by crawler.
+	 * Keys are names of patent properties. Values are data retrieved by
+	 * crawler.
 	 */
 	private Map<String, String> localData = new HashMap<String, String>();
-	
+
 	PatentHTMLProcessor htmlProc = EspaceHTMLProcessor.getInstance();
 
 	/**
@@ -99,7 +115,7 @@ public class EspacenetCrawler extends WebCrawler {
 
 	}
 
-	//TODO: multiple results
+	// TODO: multiple results
 	/**
 	 * Sends retrieved data to {@CrawlController}
 	 * 
@@ -107,6 +123,16 @@ public class EspacenetCrawler extends WebCrawler {
 	 */
 	public Object getMyLocalData() {
 		return localData;
+	}
+
+	/**
+	 * Returns list of patent data keys. Each key describe a component of patent
+	 * content (title, id, etc.)
+	 * 
+	 * @return data keys
+	 */
+	public static List<String> getKeysList() {
+		return dataKeys;
 	}
 
 	/**
@@ -148,8 +174,8 @@ public class EspacenetCrawler extends WebCrawler {
 	}
 
 	/**
-	 * Processes claim page extracting patent claim. Then stores the
-	 * data in {@code localData}.
+	 * Processes claim page extracting patent claim. Then stores the data in
+	 * {@code localData}.
 	 * 
 	 * @param html
 	 * @throws AmbiguousContentException
@@ -159,10 +185,9 @@ public class EspacenetCrawler extends WebCrawler {
 		localData.put(CLAIM_KEY, claim);
 	}
 
-	
 	/**
-	 * Processes search page extracting patent description. Then stores the
-	 * data in {@code localData}.
+	 * Processes search page extracting patent description. Then stores the data
+	 * in {@code localData}.
 	 * 
 	 * @param html
 	 * @throws AmbiguousContentException

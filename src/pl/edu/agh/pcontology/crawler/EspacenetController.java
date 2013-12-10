@@ -11,7 +11,7 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
-public class EspacenetController {
+public class EspacenetController implements PatentController{
 
 	private final static String SEARCH_URL = "http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP";
 	private final static String QUERY_STR = "&query=";
@@ -28,6 +28,7 @@ public class EspacenetController {
 	 * 
 	 * @throws Exception
 	 */
+	@Override
 	public void startCrawling() throws Exception {
 		
 		PageFetcher pageFetcher = new PageFetcher(cfg);
@@ -47,6 +48,7 @@ public class EspacenetController {
 	/**
 	 * Waits until all threads have finished and data is collected.
 	 */
+	@Override
 	public void waitTillFinish(){
 		controller.waitUntilFinish();
 	}
@@ -56,6 +58,7 @@ public class EspacenetController {
 	 * 
 	 * @return map with local data
 	 */
+	@Override
 	public Map<String, String> getLocalData() {
 		return localData;
 	}

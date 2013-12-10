@@ -35,9 +35,4 @@ public class TestMain {
 		}
 	}
 	
-	public static class StaticClass{
-	}
-	
-	public class InstClass{
-	}
 }

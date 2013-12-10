@@ -1,16 +1,12 @@
 package pl.edu.agh.pcontology.tests;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.io.FileNotFoundException;
 
 import pl.edu.agh.pcontology.crawler.EspacenetController;
-import pl.edu.agh.pcontology.crawler.EspacenetCrawler;
-import edu.uci.ics.crawler4j.crawler.CrawlConfig;
-import edu.uci.ics.crawler4j.crawler.CrawlController;
-import edu.uci.ics.crawler4j.fetcher.PageFetcher;
-import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
-import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import pl.edu.agh.pcontology.ontologies.EspacenetPatentOnt;
+import pl.edu.agh.pcontology.ontologies.WebPatentOnt;
+
+import com.hp.hpl.jena.rdf.model.Model;
 
 public class WebControllerTest {
 
@@ -20,18 +16,24 @@ public class WebControllerTest {
 				.maxDepth(2).maxPages(1000).politnessDelay(1000)
 				.resumableCrawling(false).defineQuery("WO2013154454").build();
 		
-		
+		WebPatentOnt patentOnt = null;	
 		try {
-			controller.startCrawling();
-		} catch (Exception e1) {
+			patentOnt = new EspacenetPatentOnt("patent_ont.xml", controller);
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 		
-		controller.waitTillFinish();
-		Map<String, String> data = controller.getLocalData();
+		try {
+			patentOnt.createOntology();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		for(Entry<String, String> e : data.entrySet())
-			System.out.println(e.getKey() + " " + e.getValue());
+		Model mdl = patentOnt.getOntology();
+		
+		mdl.write(System.out);
+		
 	}
 }

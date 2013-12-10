@@ -3,6 +3,8 @@ package pl.edu.agh.pcontology.tests;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.apache.jena.riot.RDFDataMgr;
+
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -36,7 +38,6 @@ public class OntTest {
 		Property invented = mdl.createProperty(NS, "invented");
 		Property isIncludedIn = mdl.createProperty(NS, "isIncludedIn");
 
-
 		mdl.add(inventor, invented, patent);
 		mdl.add(content, isIncludedIn, patent);
 
@@ -53,12 +54,26 @@ public class OntTest {
 
 		mdl.add(cpc, RDFS.subClassOf, classification);
 		mdl.add(ipc, RDFS.subClassOf, classification);
-		
-	
+
+		/*Model model = ModelFactory.createDefaultModel();
+		Resource classA = model.createResource(NS + "classA");
+		Resource classAA = model.createResource(NS + "classAA");
+		Resource classAB = model.createResource(NS + "classAB");
+		Resource keywordsA = model.createResource(NS + "keyword1 keyword2");
+
+		Property keyword = model.createProperty(NS + "keyword");
+
+		model.add(classAA, RDFS.subClassOf, classA);
+		model.add(classAB, RDFS.subClassOf, classA);
+		model.add(classA, keyword, keywordsA);
+
+		StmtIterator it = classA.listProperties(keyword);
+		while (it.hasNext())
+			System.out.println(it.nextStatement().getResource());*/
+
 		try {
 			mdl.write(new FileOutputStream(FILE_NAME), "RDF/XML");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (FileNotFoundException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
