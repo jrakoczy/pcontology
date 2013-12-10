@@ -1,0 +1,41 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://agh.edu.pl/pcontology/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/ipc">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/classification"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/appID">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/metadata"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/description">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/information"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/claim">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/information"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/metadata">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/content"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/content">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/patent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/inventor">
+    <j.0:invented rdf:resource="http://agh.edu.pl/pcontology/patent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/classification">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/metadata"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/cpc">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/classification"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/title">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/information"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/information">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/content"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://agh.edu.pl/pcontology/abstract">
+    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/information"/>
+  </rdf:Description>
+</rdf:RDF>

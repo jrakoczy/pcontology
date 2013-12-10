@@ -1,13 +1,18 @@
 package pl.edu.agh.pcontology.tests;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class OntTest {
 	private final static String NS = "http://agh.edu.pl/pcontology/";
+	private final static String FILE_NAME = "patent_ont.xml";
 	
 	public static void main(String[] args){
 		
@@ -28,26 +33,32 @@ public class OntTest {
 		Resource cpc = mdl.createResource(NS + "cpc");
 		Resource ipc = mdl.createResource(NS + "ipc");
 		
-		Property contains = mdl.createProperty(NS + "contains");
+		Property invented = mdl.createProperty(NS + "invented");
 		
-		mdl.add(patent, FOAF.maker, inventor);
-		mdl.add(patent, contains, content);
+		mdl.add(inventor, invented, patent);
+		mdl.add(content, RDFS.subClassOf, patent);
 		
-		mdl.add(content, contains, information);
-		mdl.add(content, contains, metadata);
+		mdl.add(information, RDFS.subClassOf, content);
+		mdl.add(metadata, RDFS.subClassOf, content);
 		
-		mdl.add(information, contains, abstr);
-		mdl.add(information, contains, title);
-		mdl.add(information, contains, description);
-		mdl.add(information, contains, claim);
+		mdl.add(abstr, RDFS.subClassOf, information);
+		mdl.add(title, RDFS.subClassOf, information);
+		mdl.add(description, RDFS.subClassOf, information);
+		mdl.add(claim, RDFS.subClassOf, information);
 		
-		mdl.add(metadata, contains, classification);
-		mdl.add(metadata, contains, appID);
+		mdl.add(classification, RDFS.subClassOf, metadata);
+		mdl.add(appID, RDFS.subClassOf, metadata);
 		
-		mdl.add(classification, contains, cpc);
-		mdl.add(classification, contains, ipc);
+		mdl.add(cpc, RDFS.subClassOf, classification);
+		mdl.add(ipc, RDFS.subClassOf, classification);
 		
-		mdl.write(System.out, "TURTLE");
+		try {
+			mdl.write(new FileOutputStream(FILE_NAME), "RDF/XML");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }
