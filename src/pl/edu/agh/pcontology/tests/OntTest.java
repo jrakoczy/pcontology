@@ -33,10 +33,11 @@ public class OntTest {
 		Resource cpc = mdl.createResource(NS + "cpc");
 		Resource ipc = mdl.createResource(NS + "ipc");
 		
-		Property invented = mdl.createProperty(NS + "invented");
+		Property invented = mdl.createProperty(NS, "invented");
+		Property isIncludedIn = mdl.createProperty(NS, "isIncludedIn");
 		
 		mdl.add(inventor, invented, patent);
-		mdl.add(content, RDFS.subClassOf, patent);
+		mdl.add(content, isIncludedIn, patent);
 		
 		mdl.add(information, RDFS.subClassOf, content);
 		mdl.add(metadata, RDFS.subClassOf, content);

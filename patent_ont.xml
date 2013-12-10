@@ -18,7 +18,7 @@
     <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/content"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://agh.edu.pl/pcontology/content">
-    <rdfs:subClassOf rdf:resource="http://agh.edu.pl/pcontology/patent"/>
+    <j.0:isIncludedIn rdf:resource="http://agh.edu.pl/pcontology/patent"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://agh.edu.pl/pcontology/inventor">
     <j.0:invented rdf:resource="http://agh.edu.pl/pcontology/patent"/>
