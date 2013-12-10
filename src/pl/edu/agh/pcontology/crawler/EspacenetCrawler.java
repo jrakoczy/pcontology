@@ -99,6 +99,7 @@ public class EspacenetCrawler extends WebCrawler {
 
 	}
 
+	//TODO: multiple results
 	/**
 	 * Sends retrieved data to {@CrawlController}
 	 * 

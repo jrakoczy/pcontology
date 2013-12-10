@@ -83,7 +83,7 @@ public class KeyWordsAnalyzer {
 	}
 
 	/**
-	 * A {@code KeywordsAnalyzer} builder allowing definition of different
+	 * A {@code KeywordsAnalyzer} builder. Allows defining different
 	 * preprocessing and analysis algorithms. <br\>
 	 * 
 	 * <b>Usage:</b><br\>
