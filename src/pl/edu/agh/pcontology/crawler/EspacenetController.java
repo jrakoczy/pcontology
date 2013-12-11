@@ -1,9 +1,7 @@
 package pl.edu.agh.pcontology.crawler;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -11,7 +9,13 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
-public class EspacenetController implements PatentController{
+/**
+ * Class representing a controller of Espacenet crawlers.
+ * 
+ * @author kuba
+ * @version 1.0
+ */
+public class EspacenetController extends PatentController {
 
 	private final static String SEARCH_URL = "http://worldwide.espacenet.com/searchResults?DB=worldwide.espacenet.com&ST=singleline&compact=false&locale=en_EP";
 	private final static String QUERY_STR = "&query=";
@@ -21,22 +25,17 @@ public class EspacenetController implements PatentController{
 	private CrawlConfig cfg = new CrawlConfig();
 	private CrawlController controller;
 	private String query;
-	private Map<String, String> localData;
 
 	/**
-	 * Performs crawling and stores retrieved data.
-	 * 
-	 * @throws Exception
+	 * {@inheritDoc}
 	 */
-	@Override
 	public void startCrawling() throws Exception {
-		
+
 		PageFetcher pageFetcher = new PageFetcher(cfg);
 		RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
 		RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig,
 				pageFetcher);
-		controller = new CrawlController(cfg, pageFetcher,
-				robotstxtServer);
+		controller = new CrawlController(cfg, pageFetcher, robotstxtServer);
 
 		controller.addSeed(SEARCH_URL + query);
 		controller.start(EspacenetCrawler.class, numberOfCrawlers);
@@ -44,30 +43,19 @@ public class EspacenetController implements PatentController{
 		List<Object> data = controller.getCrawlersLocalData();
 		storeData(data);
 	}
-	
+
 	/**
-	 * Waits until all threads have finished and data is collected.
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void waitTillFinish(){
+	public void waitTillFinish() {
 		controller.waitUntilFinish();
 	}
-	
-	/**
-	 * Local data getter.
-	 * 
-	 * @return map with local data
-	 */
-	@Override
-	public Map<String, String> getLocalData() {
-		return localData;
-	}
 
-	public static String getQueryStr(){
+	public static String getQueryStr() {
 		return QUERY_STR;
 	}
-	
-	
+
 	/**
 	 * Temp files directory getter.
 	 * 
@@ -80,7 +68,8 @@ public class EspacenetController implements PatentController{
 	/**
 	 * Temp files directory setter.
 	 * 
-	 * @param tempFiles the tempFiles to set
+	 * @param tempFiles
+	 *            the tempFiles to set
 	 */
 	public void setTempFiles(String tempFiles) {
 		this.tempFiles = tempFiles;
@@ -98,7 +87,8 @@ public class EspacenetController implements PatentController{
 	/**
 	 * Number of crawlers setter.
 	 * 
-	 * @param numberOfCrawlers the numberOfCrawlers to set
+	 * @param numberOfCrawlers
+	 *            the numberOfCrawlers to set
 	 */
 	public void setNumberOfCrawlers(int numberOfCrawlers) {
 		this.numberOfCrawlers = numberOfCrawlers;
@@ -116,12 +106,12 @@ public class EspacenetController implements PatentController{
 	/**
 	 * Query setter.
 	 * 
-	 * @param query the query to set
+	 * @param query
+	 *            the query to set
 	 */
 	public void setQuery(String query) {
 		this.query = QUERY_STR + query;
 	}
-
 
 	/**
 	 * An {@code EspacenetController} builder. Allows defining various crawling
@@ -134,12 +124,11 @@ public class EspacenetController implements PatentController{
 		private CrawlConfig cfg = new CrawlConfig();
 		private String query = EspacenetController.QUERY_STR;
 
-        public Builder(String _tempFiles, int _numberOfCrawlers){
-        	this.tempFiles = _tempFiles;
-        	this.cfg.setCrawlStorageFolder(this.tempFiles);
-        	this.numberOfCralwers = _numberOfCrawlers;
-        }
-		
+		public Builder(String _tempFiles, int _numberOfCrawlers) {
+			this.tempFiles = _tempFiles;
+			this.cfg.setCrawlStorageFolder(this.tempFiles);
+			this.numberOfCralwers = _numberOfCrawlers;
+		}
 
 		/**
 		 * Sets number of crawlers (threads).
@@ -231,7 +220,7 @@ public class EspacenetController implements PatentController{
 	 * @param builder
 	 */
 	private EspacenetController(Builder builder) {
-		
+
 		this.tempFiles = builder.tempFiles;
 		this.numberOfCrawlers = builder.numberOfCralwers;
 		this.cfg = builder.cfg;

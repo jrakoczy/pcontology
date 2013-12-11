@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
  * <b>Caution:</b> Singleton design pattern implementd.
  * 
  * @author kuba
+ * @version 1.0
  * 
  */
 public final class EspaceHTMLProcessor implements PatentHTMLProcessor {

@@ -16,7 +16,7 @@ import pl.edu.agh.pcontology.utils.FileUtils;
  * @author kuba
  * @version 1.0
  */
-//TODO: add thresholding
+// TODO: add thresholding
 public class KeyWordsAnalyzer {
 
 	private TextPreprocessor preprocessor;

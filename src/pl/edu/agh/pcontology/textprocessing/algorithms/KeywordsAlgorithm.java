@@ -5,11 +5,11 @@ import java.util.Map;
 
 /**
  * A root for all keyword searching algorithms.
- *
- *@author kuba
+ * 
+ * @author kuba
  */
 public interface KeyWordsAlgorithm {
-	
+
 	/**
 	 * Searches for occurrences of key words.<br/>
 	 * Maps a counter to each word.

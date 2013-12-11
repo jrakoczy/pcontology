@@ -70,5 +70,6 @@ public interface PatentHTMLProcessor {
 	 * @param html
 	 * @return string an application ID
 	 */
-	public String getApplicationID(String html) throws AmbiguousContentException;
+	public String getApplicationID(String html)
+			throws AmbiguousContentException;
 }

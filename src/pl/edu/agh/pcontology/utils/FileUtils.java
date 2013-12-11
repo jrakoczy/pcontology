@@ -6,11 +6,11 @@ import java.io.IOException;
 
 public final class FileUtils {
 
-	//you mustn't instantiate this class
-	private FileUtils(){
-		
+	// you mustn't instantiate this class
+	private FileUtils() {
+
 	}
-	
+
 	/**
 	 * Loads a file into string.
 	 * 
@@ -18,7 +18,8 @@ public final class FileUtils {
 	 * @return string
 	 * @throws IOException
 	 */
-	public static String loadFileIntoString(FileReader freader) throws IOException {
+	public static String loadFileIntoString(FileReader freader)
+			throws IOException {
 		BufferedReader breader = new BufferedReader(freader);
 		StringBuilder builder = new StringBuilder();
 
