@@ -1,0 +1,280 @@
+package pl.edu.agh.pcontology.tests;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import static com.hp.hpl.jena.sparql.expr.nodevalue.NodeFunctions.str;
+import com.hp.hpl.jena.sparql.pfunction.library.str;
+import com.hp.hpl.jena.vocabulary.RDFS;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import static org.apache.jena.riot.out.NodeFmtLib.str;
+import static pl.edu.agh.pcontology.tests.OntTest.model;
+
+import pl.edu.agh.pcontology.textprocessing.KeyWordsAnalyzer;
+import pl.edu.agh.pcontology.textprocessing.TextPreprocessor;
+import pl.edu.agh.pcontology.textprocessing.algorithms.BasicKeyWordsCounter;
+import pl.edu.agh.pcontology.textprocessing.algorithms.KeyWordsAlgorithm;
+
+public class janek {
+    private final static String NS = "http://agh.edu.pl/pcontology/";
+
+	public static void main(String[] args) throws IOException {
+//tutaj zaczyna sie budowa ontologii
+            model = ModelFactory.createDefaultModel();
+               
+            Resource stomatologia = model.createResource(NS + "stomatologia");                        
+                Resource dentalMachinesForBoringOrCutting  = model.createResource(NS + "dentalMachinesForBoringOrCutting");
+                    Resource characterisedByTheDriveOfTheDentalTools = model.createResource(NS + "characterisedByTheDriveOfTheDentalTools");
+                Resource machinePartsSpeciallyAdaptedForDentistry = model.createResource(NS + "machinePartsSpeciallyAdaptedForDentistry");
+                Resource dentalToolsOrInstruments  = model.createResource(NS + "dentalToolsOrInstruments");
+                    Resource toothDrillingOrCuttingInstruments = model.createResource(NS + "toothDrillingOrCuttingInstruments");
+                    Resource supportsForHoldingToothDrillsInOrderOfUse = model.createResource(NS + "supportsForHoldingToothDrillsInOrderOfUse");
+                    Resource toothGrindingOrPolishingDiscs = model.createResource(NS + "toothGrindingOrPolishingDiscs");
+                    Resource toothPluggersOrHammers = model.createResource(NS + "toothPluggersOrHammers");
+                    Resource toothPinclettesOrTheLike = model.createResource(NS + "toothPinclettesOrTheLike");
+                    Resource dentistsForcepsOrTheLikeForExtractingTeeth = model.createResource(NS + "dentistsForcepsOrTheLikeForExtractingTeeth");
+                    Resource dentistsForcepsForRemovingCrowns = model.createResource(NS + "dentistsForcepsForRemovingCrowns");
+                    
+                    
+            Resource keywordsStomatologia = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human");
+            Resource keywordsDentalMachinesForBoringOrCutting = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,dental,machin,oral,apparatu,bore,method,cut");
+            Resource keywordsCharacterisedByTheDriveOfTheDentalTools = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,dental,tool,bore,vibratori,electr,treadl,ultrason,character,manual,machin,apparatu,oral,drive,method,cut,turbin");
+            Resource keywordsMachinePartsSpeciallyAdaptedForDentistry = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human, apparatus,method,oral,dental,machin,bore,cut,drive,tool,character,hand,holder,cap,clutch,angl,special,piec,adapt,protect,shaft,flexibl,straight");
+            Resource keywordsDentalToolsOrInstruments = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,method,oral,dental,tool,apparatu,instrument");
+            Resource keywordsToothDrillingOrCuttingInstruments = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparatu,method,oral,dental,tool,instrument,cut,act,sandblast,clean,polish,teeth,oper,vibrat,tooth,drill");
+            Resource keywordsSupportsForHoldingToothDrillsInOrderOfUse = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,method,oral,dental,tool,instrument,tooth,teeth,drill,support,hold");
+            Resource keywordsToothGrindingOrPolishingDiscs = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,method,oral,dental,tool,instrument,tooth,teeth,grind,polish,disc,holder,therefor");
+            Resource keywordsToothPluggersOrHammers = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,method,oral,dental,tool,instrument,tooth,teeth,plugger,hammer");
+            Resource keywordsToothPinclettesOrTheLike = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,method,oral,dental,tool,instrument,tooth,teeth,pincett");
+            Resource keywordsDentistsForcepsOrTheLikeForExtractingTeeth = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,methods,oral,dental,tool,instrument,tooth,teeth,forcep,extract");
+            Resource keywordsDentistsForcepsForRemovingCrowns = model.createResource("life,save,dentistri,hygien,amus,necess,health,medic,human,apparat,method,oral,dental,tool,instrument,tooth,teeth,forcep,remov,crown");
+            
+            Resource subClassesStomatologia = model.createResource("dentalToolsOrInstruments,dentalMachinesForBoringOrCutting,machinePartsSpeciallyAdaptedForDentistry");
+            Resource subClassesDentalMachinesForBoringOrCutting = model.createResource("characterisedByTheDriveOfTheDentalTools,");
+            Resource subClassesDentalToolsOrInstruments = model.createResource("dentistsForcepsForRemovingCrowns,dentistsForcepsOrTheLikeForExtractingTeeth,toothPinclettesOrTheLike,toothPluggersOrHammers,toothGrindingOrPolishingDiscs,supportsForHoldingToothDrillsInOrderOfUse,toothDrillingOrCuttingInstruments");
+            
+            Property keyword = model.createProperty(NS + "keyword");
+            Property subClasses = model.createProperty(NS + "subClasses");
+               
+               
+            model.add(dentalMachinesForBoringOrCutting, RDFS.subClassOf, stomatologia);
+                model.add(characterisedByTheDriveOfTheDentalTools, RDFS.subClassOf, dentalMachinesForBoringOrCutting);
+            model.add(machinePartsSpeciallyAdaptedForDentistry,RDFS.subClassOf, stomatologia);
+            model.add(dentalToolsOrInstruments,RDFS.subClassOf, stomatologia);
+                model.add(toothDrillingOrCuttingInstruments, RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(supportsForHoldingToothDrillsInOrderOfUse,RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(toothGrindingOrPolishingDiscs,RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(toothPluggersOrHammers,RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(toothPinclettesOrTheLike,RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(dentistsForcepsOrTheLikeForExtractingTeeth,RDFS.subClassOf, dentalToolsOrInstruments);
+                model.add(dentistsForcepsForRemovingCrowns, RDFS.subClassOf, dentalToolsOrInstruments);
+            //model.add(classAB, RDFS.subClassOf, stomatologia);
+            
+            //podklasy   
+            model.add(stomatologia, subClasses, subClassesStomatologia);
+            model.add(dentalMachinesForBoringOrCutting, subClasses, subClassesDentalMachinesForBoringOrCutting);
+            model.add(dentalToolsOrInstruments, subClasses, subClassesDentalToolsOrInstruments);
+            
+            //slowa kluczowe           
+            model.add(stomatologia, keyword, keywordsStomatologia);
+            model.add(dentalMachinesForBoringOrCutting, keyword, keywordsDentalMachinesForBoringOrCutting);
+            model.add(characterisedByTheDriveOfTheDentalTools, keyword, keywordsCharacterisedByTheDriveOfTheDentalTools);
+            model.add(machinePartsSpeciallyAdaptedForDentistry, keyword, keywordsMachinePartsSpeciallyAdaptedForDentistry);
+            model.add(dentalToolsOrInstruments, keyword, keywordsDentalToolsOrInstruments);
+            model.add(toothDrillingOrCuttingInstruments, keyword, keywordsToothDrillingOrCuttingInstruments);
+            model.add(supportsForHoldingToothDrillsInOrderOfUse, keyword, keywordsSupportsForHoldingToothDrillsInOrderOfUse);
+            model.add(toothGrindingOrPolishingDiscs, keyword, keywordsToothGrindingOrPolishingDiscs);
+            model.add(toothPluggersOrHammers,keyword,keywordsToothPluggersOrHammers);
+            model.add(toothPinclettesOrTheLike,keyword,keywordsToothPinclettesOrTheLike);
+            model.add(dentistsForcepsOrTheLikeForExtractingTeeth, keyword, keywordsDentistsForcepsOrTheLikeForExtractingTeeth);
+            model.add(dentistsForcepsForRemovingCrowns, keyword, keywordsDentistsForcepsForRemovingCrowns);
+//Tutaj konczy sie budowa ontologii
+               
+            /*
+            StmtIterator st = model.getResource(NS + "dentistsForcepsOrTheLikeForExtractingTeeth").listProperties(keyword);
+                while(st.hasNext()){    
+            String clasa = st.nextStatement().getResource().toString();
+                System.out.println(clasa);
+            }
+            */
+            
+//Tutaj zaczyna sie tworzenie map ze slowami z opisu patentu i patent claim           
+		KeyWordsAlgorithm algo = new BasicKeyWordsCounter();
+		KeyWordsAnalyzer ana = new KeyWordsAnalyzer.Builder(algo).preprocessor(
+				new TextPreprocessor("stopwords.txt")).build();
+
+                // aaa tekst opisu patentu
+		Set<Map.Entry<String, Long>> set = null;
+		try {
+			 set = ana.findKeyWords(new FileReader("aaa.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+                
+                // bbb patent claim
+                Set<Map.Entry<String, Long>> sett = null;
+		try {
+			 sett = ana.findKeyWords(new FileReader("bbb.txt"));
+		} catch (IOException ee) {
+			// TODO Auto-generated catch block
+			ee.printStackTrace();
+		}
+//Tutaj konczy sie tworzenie map ze slowami z opisu patentu i patent claim
+                
+		
+//Tutaj zaczyna sie algorytm
+                String clas ="";
+                                                
+                double najwiekszaSuma = 0;
+                String zaklasyfikowanoDo = "";
+                
+                          
+                StmtIterator stmtIteclasses = stomatologia.listProperties(subClasses);
+                //Iteracja po podklasach klasy głównej - stomatologia
+                        while(stmtIteclasses.hasNext()){
+                            //dodawanie do stringa nazw podklas
+                            clas += stmtIteclasses.nextStatement().getResource().toString();
+                        }
+                        
+                        String[] a = clas.split(",");
+                                                
+                        // iteracja po podklasach
+                            for (int i=0; i<a.length; i++) {
+                                
+                                StmtIterator stmtIteSubClasses = model.getResource(NS + a[i]).listProperties(keyword);
+                                while(stmtIteSubClasses.hasNext()){
+                                    //pobrac slowa kluczowe z danej podklasy
+                                    String[] kluczowe = stmtIteSubClasses.nextStatement().getResource().toString().split(",");
+                                        double sumaWystapien = 0;
+                                        Iterator<Entry<String, Long>> it = set.iterator();
+                                        while(it.hasNext()){
+                                                    Entry<String, Long> e = it.next();
+                                                        for (int j=0; j<kluczowe.length; j++){
+                                                            if(kluczowe[j].equals(e.getKey())){
+                                                                //System.out.println(kluczowe[j]);
+                                                                sumaWystapien += (long) e.getValue();
+                                                            }
+                                                        }
+                                                    }
+                                        Iterator<Entry<String, Long>> itClaim = sett.iterator();
+                                        while(itClaim.hasNext()){
+                                                    Entry<String, Long> ee = itClaim.next();
+                                                        for (int j=0; j<kluczowe.length; j++){
+                                                            //stemWords(kluczowe[j]);
+                                                            //System.out.println(e.getKey());
+                                                            if(kluczowe[j].equals(ee.getKey())){
+                                                                //System.out.println(kluczowe[j]);
+                                                               sumaWystapien = sumaWystapien + (3.14 * ee.getValue());
+                                                            }
+                                                        }
+                                                    }
+                                        if(najwiekszaSuma < sumaWystapien){
+                                            najwiekszaSuma = sumaWystapien;
+                                            zaklasyfikowanoDo = a[i];
+                                        }
+                                        //System.out.println(a[i]);
+                                        //System.out.println(sumaWystapien);
+                                 }
+                                 
+                            }
+                //System.out.println(najwiekszaSuma);
+                //System.out.println(zaklasyfikowanoDo);
+                            
+                //Jeśli zaklasyfikowanoDo jest puste to patent zostaje odrzucony
+                if(zaklasyfikowanoDo.isEmpty())
+                {
+                    zaklasyfikowanoDo = "patent odrzucony";
+                    }
+                
+                else{
+                    //najwiekszaSuma = 0;
+                    clas = "";
+                   // System.out.println(zaklasyfikowanoDo);
+                    StmtIterator stmtIteSubClasses = model.getResource(NS + zaklasyfikowanoDo).listProperties(subClasses);
+                    //Iteracja po podklasach danej klasy
+                        while(stmtIteSubClasses.hasNext()){
+                            //dodawanie do stringa nazw podklas
+                            clas += stmtIteSubClasses.nextStatement().getResource().toString();
+                        }
+                        
+                        String[] aa = clas.split(",");
+                        
+                        //for(int q=0 ; q < aa.length; q++){
+                        //    System.out.println(aa[q]);
+                        //}
+                        
+                        // iteracja po podklasach
+                            for (int i=0; i<aa.length; i++) {
+                                //System.out.println(aa[i]);
+                                                                                                
+                                StmtIterator stmtIteSubSubClasses = model.getResource(NS + aa[i]).listProperties(keyword);
+                                while(stmtIteSubSubClasses.hasNext()){
+                                   
+                                    //pobrac slowa kluczowe z danej podklasy
+                                    String[] kluczowe = stmtIteSubSubClasses.nextStatement().getResource().toString().split(",");
+                                        double sumaWystapien = 0;
+                                        Iterator<Entry<String, Long>> it = set.iterator();
+                                        while(it.hasNext()){
+                                                    Entry<String, Long> e = it.next();
+                                                        for (int j=0; j<kluczowe.length; j++){
+                                                             if(kluczowe[j].equals(e.getKey())){
+                                                                //System.out.println(kluczowe[j]);
+                                                                sumaWystapien += (double) e.getValue();
+                                                            }
+                                                        }
+                                                    }
+                                        
+                                        Iterator<Entry<String, Long>> itClaim = sett.iterator();
+                                        while(itClaim.hasNext()){
+                                                    Entry<String, Long> ee = itClaim.next();
+                                                        for (int j=0; j<kluczowe.length; j++){
+                                                            
+                                                            if(kluczowe[j].equals(ee.getKey())){
+                                                                //System.out.println(kluczowe[j]);
+                                                               sumaWystapien = sumaWystapien + (3.14 * ee.getValue());
+                                                            }
+                                                        }
+                                                    }
+                                        if(najwiekszaSuma < sumaWystapien){
+                                            najwiekszaSuma = sumaWystapien;
+                                            zaklasyfikowanoDo = aa[i];
+                                        }
+                                    
+                                    // System.out.println(sumaWystapien);
+                                 }
+                                 
+                            }
+                            System.out.println(zaklasyfikowanoDo);
+                }           System.out.println(najwiekszaSuma);
+           
+		
+  // Tutaj konczy sie algorytm              
+
+// zmienna zaklasyfikowanoDo - nazwa klasy w ontologii do ktorej zostal zaklasyfikowany patent
+// zmienna najwiekszaSuma - wartosc najwyzszego wspolczynnika dopasowania
+                
+                
+                
+		
+                
+                
+                
+               
+	}
+	
+	public static class StaticClass{
+	}
+	
+	public class InstClass{
+	}
+}
